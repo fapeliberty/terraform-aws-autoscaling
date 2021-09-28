@@ -461,3 +461,16 @@ resource "aws_autoscaling_schedule" "this" {
   # Cron examples: https://crontab.guru/examples.html
   recurrence = lookup(each.value, "recurrence", null)
 }
+
+################################################################################
+# Autoscaling group schedule
+################################################################################
+resource "aws_autoscaling_policy" "this" {
+  for_each               = var.create_asg && var.create_policy ? var.policies : {}
+  name                   = each.key
+  autoscaling_group_name = aws_autoscaling_group.this[0].name
+
+  scaling_adjustment = lookup(each.value, "scaling_adjustment", null)
+  adjustment_type    = lookup(each.value, "adjustment_type", null)
+  cooldown           = lookup(each.value, "cooldown", null)
+}

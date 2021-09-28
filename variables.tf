@@ -526,3 +526,19 @@ variable "schedules" {
   type        = map(any)
   default     = {}
 }
+
+################################################################################
+# Autoscaling group policy
+################################################################################
+
+variable "create_policy" {
+  description = "Determines whether to create autoscaling group policy or not"
+  type        = bool
+  default     = true
+}
+
+variable "policies" {
+  description = "Map of autoscaling group policies to create"
+  type        = map(any)
+  default     = {}
+}
